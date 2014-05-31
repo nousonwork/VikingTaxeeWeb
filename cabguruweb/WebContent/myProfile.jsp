@@ -60,24 +60,24 @@ public String userName = "Guest";
 %>
 
 	<%
-  userName = (String)session.getAttribute("userName"); 
-String userId = (String)session.getAttribute("userId") ;
+		userName = (String)session.getAttribute("userName"); 
+	String userId = (String)session.getAttribute("userId") ;
 
-try {	
-	if(userId!=null){
-		org.json.simple.JSONObject profileJson = new org.json.simple.JSONObject();
-		profileJson.put("userId", userId);
-		String profileData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
-				+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-				+ "/cabserver/customers/get",profileJson.toJSONString());
-		org.json.simple.parser.JSONParser profileParser = new org.json.simple.parser.JSONParser();
-		profileMsg = (org.json.simple.JSONObject) profileParser.parse(profileData);
-		System.out.println("profileMsg "+profileMsg);
+	try {	
+		if(userId!=null){
+			org.json.simple.JSONObject profileJson = new org.json.simple.JSONObject();
+			profileJson.put("userId", userId);
+			String profileData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
+			+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+			+ "/cabserver/customers/get",profileJson.toJSONString());
+			org.json.simple.parser.JSONParser profileParser = new org.json.simple.parser.JSONParser();
+			profileMsg = (org.json.simple.JSONObject) profileParser.parse(profileData);
+			System.out.println("profileMsg "+profileMsg);
+		}
+	}catch(Exception e ){
+		e.printStackTrace();
 	}
-}catch(Exception e ){
-	e.printStackTrace();
-}
-%>
+	%>
 
 	<div class="navbar navbar-inverse navbar-fixed-top">
 		<div class="navbar-inner">

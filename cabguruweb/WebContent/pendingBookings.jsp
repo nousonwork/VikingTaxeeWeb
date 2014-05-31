@@ -143,20 +143,20 @@ body {
 			<%
 				try {
 
-					responseData = com.cabguru.util.HTTPConnectionManager
-							.sendGet("http://"
-									+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-									+ "/cabserver/admin/bookings/pending");
-					if (responseData != null) {
+						responseData = com.cabguru.util.HTTPConnectionManager
+								.sendGet("http://"
+										+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+										+ "/cabserver/admin/bookings/pending");
+						if (responseData != null) {
 
-						org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-						bookingsArry = (org.json.simple.JSONArray) parser
-								.parse(responseData);
+							org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+							bookingsArry = (org.json.simple.JSONArray) parser
+									.parse(responseData);
+						}
+
+					} catch (Exception e) {
+						e.printStackTrace();
 					}
-
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
 			%>
 
 

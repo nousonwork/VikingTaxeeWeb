@@ -14,7 +14,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 import com.cabguru.util.MyUtil;
 
@@ -104,7 +104,7 @@ public class ManualBookingConfirmationServlet extends HttpServlet {
 				responseData = HTTPConnectionManager
 						.sendPost(
 								"http://"
-										+ Constants.CABGURU_SERVER_IP_PORT
+										+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 										+ "/cabserver/admin/bookings/delete-driver-cancel-booking",
 								signupJson.toString());
 
@@ -170,7 +170,7 @@ public class ManualBookingConfirmationServlet extends HttpServlet {
 				signupJson.put("flightNumber", flightNumber != null ? flightNumber.trim(): "");
 
 				responseData = HTTPConnectionManager.sendPost("http://"
-						+ Constants.CABGURU_SERVER_IP_PORT
+						+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 						+ "/cabserver/admin/bookings/update-booking-data",
 						signupJson.toString());
 

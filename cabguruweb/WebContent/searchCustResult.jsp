@@ -131,59 +131,55 @@ public org.json.simple.JSONArray delCustomerArry = null;
 String delCustomerMessage = null;
 %>
 			<%
+				String phone = request.getParameter("contactNo");
+			String name = request.getParameter("name");
+			String mailId = request.getParameter("emailAddr");
+			String userId = request.getParameter("usrId");
 
-String phone = request.getParameter("contactNo");
-String name = request.getParameter("name");
-String mailId = request.getParameter("emailAddr");
-String userId = request.getParameter("usrId");
+			System.out.println("phone = " + phone);
+			System.out.println("name = " + name);
+			System.out.println("mailId = " + mailId);
+			System.out.println("userId = " + userId);
 
-System.out.println("phone = " + phone);
-System.out.println("name = " + name);
-System.out.println("mailId = " + mailId);
-System.out.println("userId = " + userId);
+			if(phone == null || phone.length() < 1){
+				phone = " ";
+			}
+			if(name == null || name.length() < 1){
+				name = " ";
+			}
+			if(mailId == null || mailId.length() < 1){
+				mailId = " ";
+			}
 
-if(phone == null || phone.length() < 1){
-	phone = " ";
-}
-if(name == null || name.length() < 1){
-	name = " ";
-}
-if(mailId == null || mailId.length() < 1){
-	mailId = " ";
-}
+			try {	
+				if(userId!=null){
+					org.json.simple.JSONObject delCustomerJson = new org.json.simple.JSONObject();
+					delCustomerJson.put("userId", userId);
+					String delCustomerData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
+					+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+					+ "/cabserver/customers/delete",delCustomerJson.toJSONString());
+					org.json.simple.parser.JSONParser deleCustomerParser = new org.json.simple.parser.JSONParser();
+					org.json.simple.JSONObject delCustomerMsg = (org.json.simple.JSONObject) deleCustomerParser.parse(delCustomerData);
+					delCustomerMessage = (String) delCustomerMsg.get("msg");
+				}
+				org.json.simple.JSONObject signupJson = new org.json.simple.JSONObject();	
+				signupJson.put("phone", phone);
+				signupJson.put("name", name);
+				signupJson.put("mailId", mailId);
 
-try {	
-	if(userId!=null){
-		org.json.simple.JSONObject delCustomerJson = new org.json.simple.JSONObject();
-		delCustomerJson.put("userId", userId);
-		String delCustomerData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
-				+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-				+ "/cabserver/customers/delete",delCustomerJson.toJSONString());
-		org.json.simple.parser.JSONParser deleCustomerParser = new org.json.simple.parser.JSONParser();
-		org.json.simple.JSONObject delCustomerMsg = (org.json.simple.JSONObject) deleCustomerParser.parse(delCustomerData);
-		delCustomerMessage = (String) delCustomerMsg.get("msg");
-	}
-	org.json.simple.JSONObject signupJson = new org.json.simple.JSONObject();	
-	signupJson.put("phone", phone);
-	signupJson.put("name", name);
-	signupJson.put("mailId", mailId);
+				String responseData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
+				+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+				+ "/cabserver/admin/customers/list",signupJson.toJSONString());
+				if (responseData != null) {
 
-	String responseData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
-			+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-			+ "/cabserver/admin/customers/list",signupJson.toJSONString());
-	if (responseData != null) {
-
-		org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-		bookingsArry = (org.json.simple.JSONArray) parser.parse(responseData);		
-	}
-	
-}catch(Exception e ){
-	e.printStackTrace();
-}
-
-
-
-%>
+					org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+					bookingsArry = (org.json.simple.JSONArray) parser.parse(responseData);		
+				}
+				
+			}catch(Exception e ){
+				e.printStackTrace();
+			}
+			%>
 
 
 
@@ -278,7 +274,7 @@ try {
 										<td><button class="btn btn-success updateButton"
 												type="submit" name="oprType" value="update">Update</button></td>
 										<td><button class="btn btn-success deleteButton"
-												onclick="confirmCustomerDelete(<% out.print((String) obj.get("userId"));%>);">
+												onclick="confirmCustomerDelete(<% out.print((String) obj.get("userId"));%>); " >
 												Delete</button></td>
 										<input type="hidden" name="userId"
 											value="<% out.print((String) obj.get("userId"));%>" />

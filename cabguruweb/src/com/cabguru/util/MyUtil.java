@@ -47,7 +47,7 @@ public class MyUtil {
 		try {
 
 			String companyDriverData = HTTPConnectionManager.sendGet("http://"
-					+ Constants.CABGURU_SERVER_IP_PORT
+					+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 					+ "/cabserver/admin/drivers/list/company");
 			if (companyDriverData != null) {
 				JSONParser companyDriverParser = new JSONParser();
@@ -80,7 +80,7 @@ public class MyUtil {
 		try {
 
 			String noncompanyDriverData = HTTPConnectionManager.sendGet("http://"
-					+ Constants.CABGURU_SERVER_IP_PORT
+					+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 					+ "/cabserver/admin/drivers/list/non-company");
 			if (noncompanyDriverData != null) {
 				JSONParser noncompanyDriverParser = new JSONParser();

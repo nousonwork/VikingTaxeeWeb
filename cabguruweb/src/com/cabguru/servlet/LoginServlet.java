@@ -16,7 +16,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 
 /**
@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 				signupJson.put("password", password.trim());
 
 				String responseData = HTTPConnectionManager.sendPost("http://"
-						+ Constants.CABGURU_SERVER_IP_PORT
+						+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 						+ "/cabserver/customers/login", signupJson.toString());
 				if (responseData != null) {
 
@@ -104,7 +104,7 @@ public class LoginServlet extends HttpServlet {
 
 							String profileData = HTTPConnectionManager
 									.sendPost("http://"
-											+ Constants.CABGURU_SERVER_IP_PORT
+											+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 											+ "/cabserver/customers/get",
 											profileReqJson.toString());
 							if (profileData != null) {
@@ -143,7 +143,7 @@ public class LoginServlet extends HttpServlet {
 
 							String companyDriverData = HTTPConnectionManager
 									.sendGet("http://"
-											+ Constants.CABGURU_SERVER_IP_PORT
+											+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 											+ "/cabserver/admin/drivers/list/company");
 							if (companyDriverData != null) {
 								JSONParser companyDriverParser = new JSONParser();
@@ -164,7 +164,7 @@ public class LoginServlet extends HttpServlet {
 
 							String noncompanyDriverData = HTTPConnectionManager
 									.sendGet("http://"
-											+ Constants.CABGURU_SERVER_IP_PORT
+											+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 											+ "/cabserver/admin/drivers/list/non-company");
 							if (noncompanyDriverData != null) {
 								JSONParser noncompanyDriverParser = new JSONParser();

@@ -13,7 +13,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 
 /**
@@ -91,7 +91,7 @@ public class NotifyServlet extends HttpServlet {
 					notifyJson.put("drivers", recepients);
 					
 					responseData = HTTPConnectionManager.sendPost("http://"
-							+ Constants.CABGURU_SERVER_IP_PORT
+							+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 							+ "/cabserver/admin/notify/drivers",
 							notifyJson.toString());
 				}
@@ -100,7 +100,7 @@ public class NotifyServlet extends HttpServlet {
 					notifyJson.put("users", recepients);
 					
 					responseData = HTTPConnectionManager.sendPost("http://"
-							+ Constants.CABGURU_SERVER_IP_PORT
+							+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 							+ "/cabserver/admin/notify/customers",
 							notifyJson.toString());
 				}

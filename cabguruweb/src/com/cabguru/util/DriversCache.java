@@ -25,7 +25,7 @@ public class DriversCache {
 		try {
 
 			String responseData = HTTPConnectionManager.sendGet("http://"
-					+ Constants.CABGURU_SERVER_IP_PORT
+					+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 					+ "/cabserver/drivers/locations");
 
 			if (responseData != null) {

@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 
 /**
@@ -66,7 +66,7 @@ public class ForgotpasswordServlet extends HttpServlet {
 				signupJson.put("phone", phone.trim());
 
 				String responseData = HTTPConnectionManager.sendPost("http://"
-						+ Constants.CABGURU_SERVER_IP_PORT
+						+ ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 						+ "/cabserver/admin/forgot-password",
 						signupJson.toString());
 				if (responseData != null) {

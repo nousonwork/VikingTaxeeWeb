@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 
 /**
@@ -81,13 +81,13 @@ public class BookingStatusServlet extends HttpServlet {
 				HttpSession session = request.getSession(false);
 
 				JSONObject signupJson = new JSONObject();
-				signupJson.put("bookingStatus", Constants.BOOKING_CANCELLED_MSG);
-				signupJson.put("bookingStatusCode", Constants.BOOKING_CANCELLED_CODE);
+				signupJson.put("bookingStatus", ConfigDetails.constants.get("BOOKING_CANCELLED_MSG"));
+				signupJson.put("bookingStatusCode", ConfigDetails.constants.get("BOOKING_CANCELLED_CODE"));
 				signupJson.put("userId", userId.trim());
 				signupJson.put("bookingId", bookingId.trim());
 
 				String statusUpdateResponseData = HTTPConnectionManager
-						.sendPost("http://" + Constants.CABGURU_SERVER_IP_PORT
+						.sendPost("http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 								+ "/cabserver/drivers/bookings/status",
 								signupJson.toString());
 				if (statusUpdateResponseData != null) {
@@ -105,7 +105,7 @@ public class BookingStatusServlet extends HttpServlet {
 						/*********/
 
 						String responseData = HTTPConnectionManager.sendPost(
-								"http://" + Constants.CABGURU_SERVER_IP_PORT
+								"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 										+ "/cabserver/customers/bookings/get",
 								signupJson.toString());
 						if (responseData != null) {

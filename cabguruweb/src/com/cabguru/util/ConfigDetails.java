@@ -1,13 +1,25 @@
 package com.cabguru.util;
 
+import java.util.HashMap;
 
-public class Constants {
+
+public class ConfigDetails {
+	
+	public static HashMap<String, String> constants;
+	
+	static{
+		constants = new HashMap<>();
+	}
 	
 	/*public static final String PROXY_HOST = "rtecproxy.ril.com";
 	public static final int PROXY_PORT = 8080;
 	public static final String PROXY_CATEGORY = "SECURE_IMPACT_PROXY";
 	public static final String PROXY_HOST_KEY = "proxy_host_key";
 	public static final String PROXY_PORT_KEY = "proxy_port_key";*/
+	
+	
+	/*
+	
 	public static final String CABGURU_SERVER_IP_PORT = "localhost:8443";
 	
 	
@@ -35,5 +47,8 @@ public class Constants {
 	public static String DRIVER_STATUS_ON_THE_WAY_FREE_STR="ON-THE-WAY";
 	
 	public static String PROJECT_NAME="cabguruweb";
+	
+	*/
+	
 
 }

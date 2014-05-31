@@ -130,72 +130,68 @@ public org.json.simple.JSONArray delDriverArry = null;
 String delDriverMessage = null;
 %>
 			<%
+				String phone = request.getParameter("contactNo");
+			String name = request.getParameter("name");
+			String licNumber = request.getParameter("licenceNo");
+			String driverId = request.getParameter("drvrId");
 
-String phone = request.getParameter("contactNo");
-String name = request.getParameter("name");
-String licNumber = request.getParameter("licenceNo");
-String driverId = request.getParameter("drvrId");
-
-//System.out.println("phone = " + phone);
-//System.out.println("name = " + name);
-//System.out.println("licNumber = " + licNumber);
-//System.out.println("driverId = " + driverId);
+			//System.out.println("phone = " + phone);
+			//System.out.println("name = " + name);
+			//System.out.println("licNumber = " + licNumber);
+			//System.out.println("driverId = " + driverId);
 
 
-if(phone == null || phone.length() < 1
-|| name == null || name.length() < 1
-|| licNumber == null || licNumber.length() < 1){
-	phone = "";
-	name = "";
-	licNumber = "";
-}else{
-	
-	if(phone == null || phone.length() < 1){
-		phone = " ";
-	}
-	if(name == null || name.length() < 1){
-		name = " ";
-	}
-	if(licNumber == null || licNumber.length() < 1){
-		licNumber = " ";
-	}
-}
-
+			if(phone == null || phone.length() < 1
+			|| name == null || name.length() < 1
+			|| licNumber == null || licNumber.length() < 1){
+				phone = "";
+				name = "";
+				licNumber = "";
+			}else{
+				
+				if(phone == null || phone.length() < 1){
+					phone = " ";
+				}
+				if(name == null || name.length() < 1){
+					name = " ";
+				}
+				if(licNumber == null || licNumber.length() < 1){
+					licNumber = " ";
+				}
+			}
 
 
 
-try {	
-	if(driverId!=null){
-		org.json.simple.JSONObject delDriverJson = new org.json.simple.JSONObject();
-		delDriverJson.put("driverId", driverId);
-		String delDriverData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
-				+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-				+ "/cabserver/drivers/delete",delDriverJson.toJSONString());
-		org.json.simple.parser.JSONParser deleDriverParser = new org.json.simple.parser.JSONParser();
-		org.json.simple.JSONObject delDriverMsg = (org.json.simple.JSONObject) deleDriverParser.parse(delDriverData);
-		delDriverMessage = (String) delDriverMsg.get("msg");
-	}
-	org.json.simple.JSONObject signupJson = new org.json.simple.JSONObject();
-	signupJson.put("phone", phone);
-	signupJson.put("name", name);
-	signupJson.put("licNumber", licNumber);
 
-	String responseData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
-			+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-			+ "/cabserver/admin/drivers/list",signupJson.toJSONString());
-	if (responseData != null) {
+			try {	
+				if(driverId!=null){
+					org.json.simple.JSONObject delDriverJson = new org.json.simple.JSONObject();
+					delDriverJson.put("driverId", driverId);
+					String delDriverData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
+					+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+					+ "/cabserver/drivers/delete",delDriverJson.toJSONString());
+					org.json.simple.parser.JSONParser deleDriverParser = new org.json.simple.parser.JSONParser();
+					org.json.simple.JSONObject delDriverMsg = (org.json.simple.JSONObject) deleDriverParser.parse(delDriverData);
+					delDriverMessage = (String) delDriverMsg.get("msg");
+				}
+				org.json.simple.JSONObject signupJson = new org.json.simple.JSONObject();
+				signupJson.put("phone", phone);
+				signupJson.put("name", name);
+				signupJson.put("licNumber", licNumber);
 
-		org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-		bookingsArry = (org.json.simple.JSONArray) parser.parse(responseData);		
-	}
-	
-}catch(Exception e ){
-	e.printStackTrace();
-}
+				String responseData = com.cabguru.util.HTTPConnectionManager.sendPost("http://"
+				+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+				+ "/cabserver/admin/drivers/list",signupJson.toJSONString());
+				if (responseData != null) {
 
-
-
-%>
+					org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+					bookingsArry = (org.json.simple.JSONArray) parser.parse(responseData);		
+				}
+				
+			}catch(Exception e ){
+				e.printStackTrace();
+			}
+			%>
 
 
 

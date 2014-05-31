@@ -128,47 +128,44 @@ body {
 					<div class="span12">
 
 
-						<% 
-					
-					try {
-						org.json.simple.JSONObject signupJson = new org.json.simple.JSONObject();
-						signupJson.put("phone", session.getAttribute("phone"));
-						signupJson.put("userId", session.getAttribute("userId"));
+						<%
+							try {
+										org.json.simple.JSONObject signupJson = new org.json.simple.JSONObject();
+										signupJson.put("phone", session.getAttribute("phone"));
+										signupJson.put("userId", session.getAttribute("userId"));
 
-						responseData = com.cabguru.util.HTTPConnectionManager
-								.sendPost(
-										"http://"
-												+ com.cabguru.util.Constants.CABGURU_SERVER_IP_PORT
-												+ "/cabserver/customers/bookings/list",
-										signupJson.toString());
-						if (responseData != null) {
-							
-							/* System.out.println("responseData = "
-									+ responseData); */
+										responseData = com.cabguru.util.HTTPConnectionManager
+												.sendPost(
+														"http://"
+																+ com.cabguru.util.ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
+																+ "/cabserver/customers/bookings/list",
+														signupJson.toString());
+										if (responseData != null) {
+											
+											/* System.out.println("responseData = "
+													+ responseData); */
 
-							org.json.simple.parser.JSONParser parser = 
-									new org.json.simple.parser.JSONParser();
-							bookingsArry = (org.json.simple.JSONArray) parser
-									.parse(responseData);
-							
-							/* System.out.println("bookingsArry = "
-									+ bookingsArry); */
-							
-							/* System.out.println("bookingsArry size = "
-									+ bookingsArry.size()); */
-					
-						org.json.simple.JSONObject objMsg = (org.json.simple.JSONObject) bookingsArry
-									.get(0);
-							String errorMsg = (String) objMsg.get("msg");
-					
-						if(errorMsg != null && errorMsg.length() > 1){
-							out.println("<div class=\"alert alert-error\">"
-									+ "<button class=\"close\" data-dismiss=\"alert\" "
-									+ "type=\"button\">×</button>" + "<strong>"
-									+ errorMsg + "</strong>" + "</div>");
-						}
-						
-						
+											org.json.simple.parser.JSONParser parser = 
+													new org.json.simple.parser.JSONParser();
+											bookingsArry = (org.json.simple.JSONArray) parser
+													.parse(responseData);
+											
+											/* System.out.println("bookingsArry = "
+													+ bookingsArry); */
+											
+											/* System.out.println("bookingsArry size = "
+													+ bookingsArry.size()); */
+									
+										org.json.simple.JSONObject objMsg = (org.json.simple.JSONObject) bookingsArry
+													.get(0);
+											String errorMsg = (String) objMsg.get("msg");
+									
+										if(errorMsg != null && errorMsg.length() > 1){
+											out.println("<div class=\"alert alert-error\">"
+													+ "<button class=\"close\" data-dismiss=\"alert\" "
+													+ "type=\"button\">×</button>" + "<strong>"
+													+ errorMsg + "</strong>" + "</div>");
+										}
 						%>
 
 						<table class="table table-striped table-condensed">

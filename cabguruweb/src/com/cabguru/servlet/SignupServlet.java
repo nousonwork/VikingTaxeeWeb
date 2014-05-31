@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 
 /**
@@ -115,7 +115,7 @@ public class SignupServlet extends HttpServlet {
 					signupJson.put("password", password.trim());
 					
 					responseData = HTTPConnectionManager.sendPost(
-							"http://" + Constants.CABGURU_SERVER_IP_PORT
+							"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 									+ "/cabserver/admin/customers/update-customer-data",
 							signupJson.toString());
 					
@@ -130,7 +130,7 @@ public class SignupServlet extends HttpServlet {
 					signupJson.put("password", password.trim());
 					
 					responseData = HTTPConnectionManager.sendPost(
-							"http://" + Constants.CABGURU_SERVER_IP_PORT
+							"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 									+ "/cabserver/customers/signup",
 							signupJson.toString());
 				}

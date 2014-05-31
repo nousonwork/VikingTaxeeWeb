@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 import com.cabguru.util.MyUtil;
 
@@ -135,13 +135,13 @@ public class BookCabServlet extends HttpServlet {
 				if(driverId == null || driverId.equals("")){
 					log.debug(" inside no driverId ");
 					bookingResponseData = HTTPConnectionManager.sendPost(
-							"http://" + Constants.CABGURU_SERVER_IP_PORT
+							"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 									+ "/cabserver/customers/bookings",
 							bookingJson.toString());
 				}else{
 					bookingJson.put("driverId", driverId);
 					bookingResponseData = HTTPConnectionManager.sendPost(
-							"http://" + Constants.CABGURU_SERVER_IP_PORT
+							"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 									+ "/cabserver/admin/bookings/manual",
 							bookingJson.toString());
 				}
@@ -161,7 +161,7 @@ public class BookCabServlet extends HttpServlet {
 								+ ". SMS/EMail Notification will be sent with booking details.");
 						return;
 
-					} else if (bookingCode.equalsIgnoreCase(Constants.BOOKING_FAILED_CODE)) {
+					} else if (bookingCode.equalsIgnoreCase(ConfigDetails.constants.get("BOOKING_FAILED_CODE"))) {
 						dispatch(request, response, callerPage, bookingMsg);
 						return;
 					} else {

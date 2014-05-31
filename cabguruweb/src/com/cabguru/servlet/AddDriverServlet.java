@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.cabguru.util.Constants;
+import com.cabguru.util.ConfigDetails;
 import com.cabguru.util.HTTPConnectionManager;
 
 /**
@@ -116,7 +116,7 @@ public class AddDriverServlet extends HttpServlet {
 						
 
 						responseData = HTTPConnectionManager.sendPost(
-								"http://" + Constants.CABGURU_SERVER_IP_PORT
+								"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 										+ "/cabserver/admin/drivers/update-driver-data",
 								signupJson.toString());
 					 
@@ -134,7 +134,7 @@ public class AddDriverServlet extends HttpServlet {
 						
 
 						responseData = HTTPConnectionManager.sendPost(
-								"http://" + Constants.CABGURU_SERVER_IP_PORT
+								"http://" + ConfigDetails.constants.get("CABGURU_SERVER_IP_PORT")
 										+ "/cabserver/drivers/signup",
 								signupJson.toString());
 				 }
